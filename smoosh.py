@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Kompres Lossless: perkecil ukuran file di macOS tanpa menurunkan kualitas.
+"""Smoosh: perkecil ukuran file di macOS tanpa menurunkan kualitas.
 
-Pakai: python3 kompres.py [--pdf lossless|high|small] [--video] [-o FOLDER] file_atau_folder ...
-Tampilan: Kompres Lossless.app (SwiftUI) memanggil file ini dengan --json.
+Pakai: python3 smoosh.py [--pdf lossless|high|small] [--video] [-o FOLDER] file_atau_folder ...
+Tampilan: Smoosh.app (SwiftUI) memanggil file ini dengan --json.
 
 File asli tidak pernah diubah. Hasil disimpan ke folder baru, dan hanya
 disimpan kalau memang lebih kecil dari aslinya.

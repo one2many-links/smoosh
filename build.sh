@@ -1,26 +1,26 @@
 #!/bin/zsh
-# Bangun "Kompres Lossless.app" dari swift/KompresApp.swift dan kompres.py.
+# Bangun "Smoosh.app" dari swift/Smoosh.swift dan smoosh.py.
 set -euo pipefail
 cd "${0:A:h}"
 
-APP="Kompres Lossless.app"
+APP="Smoosh.app"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
 swiftc -O -parse-as-library -swift-version 5 \
   -target "$(uname -m)-apple-macos13.0" \
-  swift/KompresApp.swift -o "$APP/Contents/MacOS/KompresLossless"
+  swift/Smoosh.swift -o "$APP/Contents/MacOS/Smoosh"
 
-cp kompres.py assets/AppIcon.icns "$APP/Contents/Resources/"
+cp smoosh.py assets/AppIcon.icns "$APP/Contents/Resources/"
 
 cat > "$APP/Contents/Info.plist" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
-<key>CFBundleName</key><string>Kompres Lossless</string>
-<key>CFBundleDisplayName</key><string>Kompres Lossless</string>
-<key>CFBundleIdentifier</key><string>local.kompres.lossless</string>
-<key>CFBundleExecutable</key><string>KompresLossless</string>
+<key>CFBundleName</key><string>Smoosh</string>
+<key>CFBundleDisplayName</key><string>Smoosh</string>
+<key>CFBundleIdentifier</key><string>local.smoosh</string>
+<key>CFBundleExecutable</key><string>Smoosh</string>
 <key>CFBundleIconFile</key><string>AppIcon</string>
 <key>CFBundlePackageType</key><string>APPL</string>
 <key>CFBundleShortVersionString</key><string>2.0</string>

@@ -50,14 +50,14 @@ func formatSize(_ bytes: Int64) -> String {
     ByteCountFormatter.string(fromByteCount: bytes, countStyle: .binary)
 }
 
-// MARK: - Mesin kompresi (kompres.py)
+// MARK: - Mesin kompresi (smoosh.py)
 
 enum Engine {
     static let python: String = ["/usr/local/bin/python3", "/opt/homebrew/bin/python3", "/usr/bin/python3"]
         .first { FileManager.default.isExecutableFile(atPath: $0) } ?? "/usr/bin/python3"
-    static let script = Bundle.main.path(forResource: "kompres", ofType: "py") ?? ""
+    static let script = Bundle.main.path(forResource: "smoosh", ofType: "py") ?? ""
 
-    /// Jalankan kompres.py dan kembalikan tiap baris JSON dari keluarannya.
+    /// Jalankan smoosh.py dan kembalikan tiap baris JSON dari keluarannya.
     static func run(_ args: [String]) -> [[String: Any]] {
         let process = Process()
         process.executableURL = URL(fileURLWithPath: python)
@@ -83,7 +83,7 @@ enum Engine {
         var outDir: String?
     }
 
-    /// Kompres satu file dan terjemahkan jawaban kompres.py ke status untuk tampilan.
+    /// Kompres satu file dan terjemahkan jawaban smoosh.py ke status untuk tampilan.
     static func compress(path: String, base: String?, mode: PDFMode, video: Bool, out: String?) -> Outcome {
         var args = ["--json", "--pdf", mode.rawValue]
         if video { args.append("--video") }
@@ -259,7 +259,7 @@ struct ContentView: View {
                 .resizable()
                 .frame(width: 56, height: 56)
             VStack(alignment: .leading, spacing: 2) {
-                Text("Kompres Lossless").font(.title2.weight(.bold))
+                Text("Smoosh").font(.title2.weight(.bold))
                 Text("Perkecil PDF, JPG, dan PNG. File asli tidak diubah.")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
@@ -821,17 +821,17 @@ struct MenuContent: View {
 }
 
 @main
-struct KompresApp: App {
+struct SmooshApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var delegate
 
     var body: some Scene {
-        Window("Kompres Lossless", id: "main") {
+        Window("Smoosh", id: "main") {
             ContentView(store: store)
         }
         .windowResizability(.contentMinSize)
         .defaultSize(width: 700, height: 700)
 
-        MenuBarExtra("Kompres Lossless", systemImage: "arrow.down.right.and.arrow.up.left") {
+        MenuBarExtra("Smoosh", systemImage: "arrow.down.right.and.arrow.up.left") {
             MenuContent()
         }
     }
